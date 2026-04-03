@@ -533,7 +533,21 @@
                     
                     <div class="mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center border-t border-slate-200 pt-5 gap-4">
                         <div class="flex flex-wrap gap-2 w-full sm:w-auto order-2 sm:order-1">
-                            <button type="button" id="btnDelete" onclick="deleteTask()" class="hidden flex-1 sm:flex-none bg-red-50 text-red-600 hover:bg-red-100 px-5 py-3 rounded-xl border border-red-200 transition text-xs font-black shadow-sm items-center justify-center tracking-widest uppercase">🗑️ Xóa</button>
+                            <button type="button" id="btnDelete" onclick="function deleteTask() {
+            const id = document.getElementById('taskId').value; if (!id) return;
+            if (confirm("⚠️ BẠN CÓ CHẮC CHẮN MUỐN XÓA CÔNG VIỆC NÀY?\n\n(Dữ liệu sẽ được dọn dẹp sang Thùng rác để đồng bộ)")) {
+                const idx = tasks.findIndex(t => t.id === id);
+                if (idx > -1) { 
+                    // Tung "Bùa chú" đánh dấu Xoá Mềm thay vì xoá cứng
+                    tasks[idx].deleted = true; 
+                    tasks[idx].lastUpdated = Date.now();
+                    saveToDB(); 
+                    closeModal(); 
+                    showToast("🗑️ Đã dọn dẹp công việc vào Thùng rác!"); 
+                    syncWithCloud(true); // Đồng bộ ngay để báo cho các máy khác biết
+                }
+            }
+        }" class="hidden flex-1 sm:flex-none bg-red-50 text-red-600 hover:bg-red-100 px-5 py-3 rounded-xl border border-red-200 transition text-xs font-black shadow-sm items-center justify-center tracking-widest uppercase">🗑️ Xóa</button>
                             <button type="button" id="btnDuplicate" onclick="duplicateTask()" class="hidden flex-1 sm:flex-none bg-blue-50 text-blue-700 hover:bg-blue-100 px-5 py-3 rounded-xl border border-blue-200 transition text-xs font-black shadow-sm tracking-widest uppercase">🔄 Bản Sao</button>
                             <button type="button" onclick="generateGoogleCal()" class="flex-1 sm:flex-none text-blue-700 font-black bg-blue-50 hover:bg-blue-100 px-5 py-3 rounded-xl border border-blue-200 transition text-xs shadow-sm flex items-center justify-center tracking-widest uppercase">📅 Lên Lịch</button>
                         </div>
@@ -584,7 +598,7 @@
     <script>
         // --- 0. CLOUD SYNC SETTINGS ---
         // BẠN CÓ THỂ DÁN LINK GOOGLE APPS SCRIPT VÀO ĐÂY NẾU MUỐN ĐỒNG BỘ:
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7Dfw33TJeOKYSKuu-slP66nCmwEJ6IKiSEmT11qe7p5yy4dwhPQnVKw9JzH5tVEgCTQ/exec";
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6Ix2uD2nS000tgVUF1fqt6ULl0E1UiFgdn4iRfzs7zJT54ebI4eam_Ynrofh3kRcc/exec";
 
         // --- 0. SECURITY & CONFIG ---
         const PIN_MAP = { "CEO": "8888", "QL_SAN_XUAT": "1111", "KE_TOAN": "2222", "HANH_CHINH": "3333", "MID_BACKUP": "4444", "TO_TRUONG_1": "5555", "TO_TRUONG_2": "6666", "LOW_BACKUP": "7777" };
