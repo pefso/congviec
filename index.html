@@ -107,17 +107,17 @@
                     <label class="block text-[10px] font-extrabold text-orange-600 mb-2 uppercase tracking-widest">Vị Trí Công Tác</label>
                     <select id="loginRole" class="w-full border-2 border-slate-200 bg-slate-50 rounded-xl px-4 py-3.5 outline-none font-bold text-slate-800 focus:border-orange-500 transition" onchange="checkLoginRole()">
                         <option value="" disabled selected>-- Vui lòng chọn --</option>
-                        <option value="CEO">CEO</option>
+                        <option value="CEO"> CEO </option>
                         <optgroup label="Quản Lý Cấp Trung">
-                            <option value="QL_SAN_XUAT">Quản lý sản xuất</option>
-                            <option value="KE_TOAN">Kế toán</option>
-                            <option value="HANH_CHINH">Hành chính tổng hợp</option>
-                            <option value="MID_BACKUP">Sale </option>
+                            <option value="QL_SAN_XUAT">📍 Quản lý sản xuất</option>
+                            <option value="KE_TOAN">📍 Kế toán</option>
+                            <option value="HANH_CHINH">📍 Hành chính tổng hợp</option>
+                            <option value="MID_BACKUP">📍 Sale</option>
                         </optgroup>
                         <optgroup label="Quản Lý Cấp Thấp">
-                            <option value="TO_TRUONG_1">Tổ trưởng SX1</option>
-                            <option value="TO_TRUONG_2">Tổ trưởng SX2</option>
-                            <option value="LOW_BACKUP">Tổ trường SX3</option>
+                            <option value="TO_TRUONG_1">🌿 Tổ trường SX1</option>
+                            <option value="TO_TRUONG_2">🌿 Tổ trường SX2</option>
+                            <option value="LOW_BACKUP">🌿 Tổ trường SX3</option>
                         </optgroup>
                     </select>
                 </div>
@@ -162,7 +162,11 @@
                 <button id="btnSyncCloud" onclick="syncWithCloud(false)" class="w-full flex items-center bg-orange-600/20 text-orange-400 border border-orange-500/30 px-4 py-3 rounded-xl text-xs font-black transition mb-2 justify-center hover:bg-orange-600 hover:text-white">
                     <span class="menu-icon mr-2 text-lg">🔄</span> <span class="menu-text tracking-wider uppercase">LÀM MỚI DỮ LIỆU</span>
                 </button>
-                <button onclick="exportData()" class="w-full flex justify-center items-center bg-transparent hover:bg-blue-800/50 text-blue-300 px-2 py-2.5 rounded-lg text-[10px] font-bold transition mt-2"><span class="menu-icon mr-2">📦</span> <span class="menu-text">Tải File Backup .JSON</span></button>
+                <button onclick="exportData()" class="w-full flex justify-center items-center bg-transparent hover:bg-blue-800/50 text-blue-300 px-2 py-2.5 rounded-lg text-[10px] font-bold transition mt-2 mb-4"><span class="menu-icon mr-2">📦</span> <span class="menu-text">Tải File Backup .JSON</span></button>
+                
+                <button onclick="factoryReset()" class="w-full flex justify-center items-center bg-red-900/30 hover:bg-red-800 text-red-300 px-2 py-2.5 rounded-lg text-[10px] font-bold transition mt-2 border border-red-900 ceo-only shadow-inner">
+                    <span class="menu-icon mr-2">⚠️</span> <span class="menu-text">Xóa Sạch Toàn Bộ Dữ Liệu</span>
+                </button>
             </div>
         </div>
         
@@ -651,10 +655,7 @@
         let currentCalendarMonth = todayObj.getMonth(); let currentCalendarYear = todayObj.getFullYear();
 
         const defaultTasks = [
-            { id: "PF-001", role: "QL_SAN_XUAT", owner: "Hùng", strategy: "Tăng Trưởng Doanh Thu", priority: "Khẩn cấp", name: "Đàm phán giá cước vận tải biển EU", due: "2026-04-10", status: "Đang làm", isIncident: false, approval: "Chưa nộp", approver: "CEO", drive: "", notes: "Liên hệ hãng tàu quốc tế", archived: false, deleted: false, checklist: [{text:"Chốt báo giá", done:false}], comments: [], unreadRoles: [], revisionCount: 0, lastUpdated: Date.now(), createdBy: "CEO" },
-            { id: "PF-002", role: "KE_TOAN", owner: "Mai", strategy: "Sự Vụ Hàng Ngày", priority: "Cao", name: "Chốt sổ sách công nợ Quý 1", due: "2026-04-05", status: "Kế hoạch", isIncident: false, approval: "Chưa nộp", approver: "CEO", drive: "", notes: "", archived: false, deleted: false, checklist: [], comments: [], unreadRoles: [], revisionCount: 0, lastUpdated: Date.now(), createdBy: "CEO" },
-            { id: "PF-003", role: "TO_TRUONG_1", owner: "Hải", strategy: "Quản Trị Rủi Ro & Chất Lượng", priority: "Cao", name: "Kiểm tra chống nấm mốc lô giỏ tre", due: "2026-04-08", status: "Vướng mắc", isIncident: true, approval: "Chưa nộp", approver: "QL_SAN_XUAT", drive: "", notes: "Hóa chất trễ", archived: false, deleted: false, checklist: [{text:"Test độ ẩm", done:false}], comments: [], unreadRoles: [], revisionCount: 0, lastUpdated: Date.now(), createdBy: "QL_SAN_XUAT" },
-            { id: "PF-004", role: "HANH_CHINH", owner: "Linh", strategy: "Chuẩn Hóa Hệ Thống", priority: "Bình thường", name: "Bảo trì định kỳ máy sấy nguyên liệu", due: "2026-04-15", status: "Hoàn thành", isIncident: false, approval: "Chờ duyệt", approver: "CEO", drive: "https://docs.pefso.com", notes: "", archived: false, deleted: false, checklist: [{text:"Sửa motor", done:true}], comments: [], unreadRoles: [], revisionCount: 0, lastUpdated: Date.now(), createdBy: "CEO" }
+            { id: "PF-001", role: "QL_SAN_XUAT", owner: "Hùng", strategy: "Tăng Trưởng Doanh Thu", priority: "Khẩn cấp", name: "Đàm phán giá cước vận tải biển EU", due: "2026-04-10", status: "Đang làm", isIncident: false, approval: "Chưa nộp", approver: "CEO", drive: "", notes: "Liên hệ hãng tàu quốc tế", archived: false, deleted: false, checklist: [{text:"Chốt báo giá", done:false}], comments: [], unreadRoles: [], revisionCount: 0, lastUpdated: Date.now(), createdBy: "CEO" }
         ];
         const defaultTemplates = [{ role: "QL_SAN_XUAT", name: "Quy trình xuất cont đi Mỹ" }];
 
@@ -673,7 +674,7 @@
             if(!isModalOpen) renderAllViews(); 
         }
 
-        // --- 2. CLOUD SYNC LOGIC ---
+        // --- 2. CLOUD SYNC LOGIC & FORCE PUSH ---
         async function syncWithCloud(isSilent = false) {
             if (!navigator.onLine) {
                 if(!isSilent) showToast("⛔ Mất kết nối mạng. Hệ thống sẽ chờ để đồng bộ.");
@@ -717,6 +718,33 @@
                 if(iconHTML) { iconHTML.innerHTML = 'Lỗi mạng'; iconHTML.classList.add('text-red-500'); }
             } finally {
                 if(!isSilent) { btn.innerHTML = originalHTML; btn.disabled = false; }
+            }
+        }
+
+        // Ép đẩy dữ liệu lên Google Sheets mà không kéo về trước (Dùng khi xoá cứng)
+        async function forcePushToCloud() {
+            if (!navigator.onLine || !APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("DÁN_LINK")) return;
+            const payload = { tasks: tasks, templates: templates, settings: companySOP };
+            try {
+                await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) });
+            } catch(e) {}
+        }
+
+        // Tính năng Factory Reset
+        function factoryReset() {
+            if(currentUserRole !== 'CEO') return;
+            if(confirm("🚨 CẢNH BÁO NGUY HIỂM 🚨\n\nHành động này sẽ XÓA SẠCH 100% TOÀN BỘ CÔNG VIỆC TRÊN MỌI THIẾT BỊ VÀ GOOGLE SHEETS để bắt đầu lại từ đầu.\n\nBạn có chắc chắn muốn xoá sạch hệ thống không?")) {
+                const pin = prompt("Nhập mã PIN của CEO (8888) để xác nhận XÓA SẠCH:");
+                if (pin === "8888") {
+                    tasks = []; // Xoá sạch mảng
+                    saveToDB();
+                    forcePushToCloud().then(() => {
+                        alert("✅ Đã xoá sạch toàn bộ dữ liệu hệ thống!");
+                        location.reload();
+                    });
+                } else {
+                    alert("Mã PIN không đúng, đã hủy thao tác xóa.");
+                }
             }
         }
 
@@ -1169,16 +1197,12 @@
 
         function deleteTask() {
             const id = document.getElementById('taskId').value; if (!id) return;
-            if (confirm("⚠️ BẠN CÓ CHẮC CHẮN MUỐN XÓA CÔNG VIỆC NÀY?\n\nHành động này sẽ xóa vĩnh viễn trên mọi thiết bị và không thể hoàn tác!")) {
-                const idx = tasks.findIndex(t => t.id === id);
-                if (idx > -1) { 
-                    tasks[idx].deleted = true; 
-                    tasks[idx].lastUpdated = Date.now();
-                    saveToDB(); 
-                    closeModal(); 
-                    showToast("🗑️ Đã xóa công việc thành công!"); 
-                    syncWithCloud(true); 
-                }
+            if (confirm("⚠️ BẠN CÓ CHẮC CHẮN MUỐN XÓA VĨNH VIỄN CÔNG VIỆC NÀY?\n\nHành động này không thể hoàn tác!")) {
+                tasks = tasks.filter(t => t.id !== id);
+                saveToDB(); 
+                closeModal(); 
+                showToast("🗑️ Đã xóa công việc thành công!"); 
+                forcePushToCloud(); 
             }
         }
 
@@ -1193,7 +1217,6 @@
             const currentComments = id ? (tasks.find(t=>t.id===id).comments || []) : [];
             let unreadRoles = id ? (tasks.find(t=>t.id===id).unreadRoles || []) : [];
 
-            // Nếu tạo mới, gắn đỏ cho người nhận và người duyệt
             if(!id) { unreadRoles = [role, document.getElementById('taskApprover').value].filter(r => r && r !== currentUserRole); }
 
             const baseTask = {
@@ -1228,7 +1251,7 @@
             
             if (t.unreadRoles && t.unreadRoles.includes(currentUserRole)) {
                 t.unreadRoles = t.unreadRoles.filter(r => r !== currentUserRole);
-                saveToDB(); // Xóa chấm đỏ ngầm
+                saveToDB(); 
             }
 
             ['Id', 'Name', 'Role', 'Owner', 'Priority', 'Strategy', 'Due', 'Status', 'Approval', 'Approver', 'Drive', 'Notes'].forEach(f => { const el = document.getElementById('task' + f); if(el) el.value = t[f.toLowerCase()] || ''; });
